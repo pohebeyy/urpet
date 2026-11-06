@@ -1,0 +1,17 @@
+services:
+  api:
+    build: .
+    container_name: request_system_api
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./data/request_system.sqlite3
+    volumes:
+      - ./data:/app/data
+      - ./src:/app/src
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
