@@ -9,6 +9,7 @@ services:
     volumes:
       - ./data:/app/data
       - ./src:/app/src
+      - ./testing:/app/testing
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
       interval: 30s
